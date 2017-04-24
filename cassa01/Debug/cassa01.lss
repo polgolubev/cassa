@@ -1,0 +1,149 @@
+
+cassa01.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000062  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000000b6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000000b6  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000000e8  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000020  00000000  00000000  00000124  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000003f4  00000000  00000000  00000144  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000381  00000000  00000000  00000538  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000021d  00000000  00000000  000008b9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000024  00000000  00000000  00000ad8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000278  00000000  00000000  00000afc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000067  00000000  00000000  00000d74  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000010  00000000  00000000  00000ddb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	0e c0       	rjmp	.+28     	; 0x20 <__bad_interrupt>
+   4:	0d c0       	rjmp	.+26     	; 0x20 <__bad_interrupt>
+   6:	0c c0       	rjmp	.+24     	; 0x20 <__bad_interrupt>
+   8:	0b c0       	rjmp	.+22     	; 0x20 <__bad_interrupt>
+   a:	0a c0       	rjmp	.+20     	; 0x20 <__bad_interrupt>
+   c:	09 c0       	rjmp	.+18     	; 0x20 <__bad_interrupt>
+   e:	08 c0       	rjmp	.+16     	; 0x20 <__bad_interrupt>
+  10:	07 c0       	rjmp	.+14     	; 0x20 <__bad_interrupt>
+  12:	06 c0       	rjmp	.+12     	; 0x20 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+  1c:	02 d0       	rcall	.+4      	; 0x22 <main>
+  1e:	1f c0       	rjmp	.+62     	; 0x5e <_exit>
+
+00000020 <__bad_interrupt>:
+  20:	ef cf       	rjmp	.-34     	; 0x0 <__vectors>
+
+00000022 <main>:
+
+
+int main(void)
+{
+    unsigned char buttonpress=0;
+	DDRB = 0b00000110;
+  22:	86 e0       	ldi	r24, 0x06	; 6
+  24:	87 bb       	out	0x17, r24	; 23
+	PORTB = 0b00000011;
+  26:	83 e0       	ldi	r24, 0x03	; 3
+  28:	88 bb       	out	0x18, r24	; 24
+#include <util/delay.h>
+
+
+int main(void)
+{
+    unsigned char buttonpress=0;
+  2a:	80 e0       	ldi	r24, 0x00	; 0
+			{
+				buttonpress--;
+			} 
+			else
+			{
+				PORTB = 0b00000011;				
+  2c:	93 e0       	ldi	r25, 0x03	; 3
+			{
+				buttonpress++;
+			} 
+			else
+			{
+				PORTB = 0b00000101;
+  2e:	25 e0       	ldi	r18, 0x05	; 5
+    unsigned char buttonpress=0;
+	DDRB = 0b00000110;
+	PORTB = 0b00000011;
+    while (1) 
+    {
+		if (!(PINB&0b00000001))
+  30:	b0 99       	sbic	0x16, 0	; 22
+  32:	0f c0       	rjmp	.+30     	; 0x52 <__SREG__+0x13>
+		{
+			if (buttonpress<5)
+  34:	85 30       	cpi	r24, 0x05	; 5
+  36:	10 f4       	brcc	.+4      	; 0x3c <main+0x1a>
+			{
+				buttonpress++;
+  38:	8f 5f       	subi	r24, 0xFF	; 255
+  3a:	fa cf       	rjmp	.-12     	; 0x30 <main+0xe>
+			} 
+			else
+			{
+				PORTB = 0b00000101;
+  3c:	28 bb       	out	0x18, r18	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  3e:	3f e7       	ldi	r19, 0x7F	; 127
+  40:	4c ef       	ldi	r20, 0xFC	; 252
+  42:	5a e0       	ldi	r21, 0x0A	; 10
+  44:	31 50       	subi	r19, 0x01	; 1
+  46:	40 40       	sbci	r20, 0x00	; 0
+  48:	50 40       	sbci	r21, 0x00	; 0
+  4a:	e1 f7       	brne	.-8      	; 0x44 <__SREG__+0x5>
+  4c:	00 c0       	rjmp	.+0      	; 0x4e <__SREG__+0xf>
+  4e:	00 00       	nop
+  50:	ef cf       	rjmp	.-34     	; 0x30 <main+0xe>
+				_delay_ms(3000);
+			}
+		} 
+		else
+		{
+			if (buttonpress>0)
+  52:	88 23       	and	r24, r24
+  54:	11 f0       	breq	.+4      	; 0x5a <__SREG__+0x1b>
+			{
+				buttonpress--;
+  56:	81 50       	subi	r24, 0x01	; 1
+  58:	eb cf       	rjmp	.-42     	; 0x30 <main+0xe>
+			} 
+			else
+			{
+				PORTB = 0b00000011;				
+  5a:	98 bb       	out	0x18, r25	; 24
+  5c:	e9 cf       	rjmp	.-46     	; 0x30 <main+0xe>
+
+0000005e <_exit>:
+  5e:	f8 94       	cli
+
+00000060 <__stop_program>:
+  60:	ff cf       	rjmp	.-2      	; 0x60 <__stop_program>
