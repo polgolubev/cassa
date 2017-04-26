@@ -59,8 +59,8 @@ int main(void)
 {
     unsigned char buttonpress=0;
 	unsigned char i;
-	DDRB = 0b00001110;
-  22:	8e e0       	ldi	r24, 0x0E	; 14
+	DDRB = 0b00010110;
+  22:	86 e1       	ldi	r24, 0x16	; 22
   24:	87 bb       	out	0x17, r24	; 23
 	PORTB = 0b00000011;
   26:	83 e0       	ldi	r24, 0x03	; 3
@@ -84,8 +84,8 @@ int main(void)
 			} 
 			else
 			{
-				PORTB = 0b00001100;
-  2e:	4c e0       	ldi	r20, 0x0C	; 12
+				PORTB = 0b00010100;
+  2e:	44 e1       	ldi	r20, 0x14	; 20
 				_delay_ms(2000);
 				for (i=0;i < 58; i++)
 				{
@@ -96,7 +96,7 @@ int main(void)
 				PORTB = 0b00000101;
   32:	55 e0       	ldi	r21, 0x05	; 5
 	unsigned char i;
-	DDRB = 0b00001110;
+	DDRB = 0b00010110;
 	PORTB = 0b00000011;
     while (1) 
     {
@@ -114,7 +114,7 @@ int main(void)
 			} 
 			else
 			{
-				PORTB = 0b00001100;
+				PORTB = 0b00010100;
   40:	48 bb       	out	0x18, r20	; 24
 	#else
 		//round up by default
@@ -150,7 +150,7 @@ int main(void)
 			} 
 			else
 			{
-				PORTB = 0b00001100;
+				PORTB = 0b00010100;
 				_delay_ms(2000);
 				for (i=0;i < 58; i++)
   6c:	a1 f7       	brne	.-24     	; 0x56 <__SREG__+0x17>

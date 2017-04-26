@@ -7,7 +7,7 @@ int main(void)
 {
     unsigned char buttonpress=0;
 	unsigned char i;
-	DDRB = 0b00001110;
+	DDRB = 0b00010110;
 	PORTB = 0b00000011;
     while (1) 
     {
@@ -19,7 +19,7 @@ int main(void)
 			} 
 			else
 			{
-				PORTB = 0b00001100;
+				PORTB = 0b00010100;
 				_delay_ms(2000);
 				for (i=0;i < 58; i++)
 				{
